@@ -8,10 +8,6 @@ from flask_login import login_user
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
-def login():
-    return render_template('login.html')
-
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
@@ -30,7 +26,7 @@ def login_post():
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
-    return redirect(url_for('main.dashboard'))
+    return redirect('/')
     #return render_template("user_dashboard.html", current_user=user)
 
 @auth.route('/signup')
