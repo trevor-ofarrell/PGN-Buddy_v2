@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default function test() {\n  return;\n}","map":{"version":3,"sources":["/home/oem/PGN-Buddy_v2/pages/test.js"],"names":["test"],"mappings":"AAAA,eAAe,SAASA,IAAT,GAAgB;AAC3B;AACH","sourcesContent":["export default function test() {\n    return \n} "]},"metadata":{},"sourceType":"module"}

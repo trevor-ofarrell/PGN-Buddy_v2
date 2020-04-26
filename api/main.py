@@ -22,6 +22,10 @@ r = redis.Redis()
 def index():
     return render_template('webindex.html')
 
+@main.route("/test", methods=["GET"])
+def catch_all():
+    return jsonify("Valid Endpoint"), 200
+
 
 @main.route('/homescreen')
 def home():
