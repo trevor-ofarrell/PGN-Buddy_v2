@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "start-api": "cd api && flask run --port 5001 --no-debugger"
+    "start-api": "cd api && python3 -m flask run --port 5001 --no-debugger"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.11",

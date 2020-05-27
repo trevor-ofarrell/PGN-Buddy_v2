@@ -26,7 +26,8 @@ def login_post():
         return redirect('/')
 
     login_user(user, remember=remember)
-    return redirect('/')
+    ret = {'status': 'ok'}
+    return jsonify(ret), 201
     #return render_template("user_dashboard.html", current_user=user)
 
 @auth.route('/signup')
