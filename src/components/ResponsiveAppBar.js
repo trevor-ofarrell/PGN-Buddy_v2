@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const GLAppBar = () => {
+export const ResponsiveAppBar = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -145,14 +145,7 @@ export const GLAppBar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem>
-        <Link to="/">
-          <a style={{ textDecoration: "none", color: "black" }}>Home</a>
-        </Link>
-      </MenuItem>
-      <MenuItem>
-        <Link to="/charity">
-          <a style={{ textDecoration: "none", color: "black" }}>Charity</a>
-        </Link>
+
       </MenuItem>
     </Menu>
   );
@@ -209,7 +202,7 @@ export const GLAppBar = () => {
             noWrap
             style={{ color: "white", fontWeight: "bold" }}
           >
-            GALTLINE
+            PGNBuddy
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

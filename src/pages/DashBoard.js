@@ -7,11 +7,16 @@ import fetch from 'isomorphic-unfetch'
 
 import {
     ResponsiveAppBar,
-} from "../components"
+} from "../components/ResponsiveAppBar"
 
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        height: '100vh',
+        backgroundImage: 'url("/checkmate.jpeg")',
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
 }));
 
