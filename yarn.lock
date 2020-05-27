@@ -939,6 +939,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
+"@kunukn/react-collapse@^2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@kunukn/react-collapse/-/react-collapse-2.2.8.tgz#d955b1e850838cf4bf080813cac0fefdda7347a1"
+  integrity sha512-avBSS1V3/y3utIS9wUOP0OntjSH/bDH7iU9lu6KtrpeITiHpGN9ll+uxARrPGxWVkS6HtL9eABB5+IEIoe1CJg==
+
 "@material-ui/core@^4.9.11":
   version "4.9.11"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.9.11.tgz#02f45f4dbea6db191fdc0d993323d64cfae613fd"

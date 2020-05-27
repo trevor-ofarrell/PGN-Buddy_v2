@@ -5,14 +5,17 @@ from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user
+import sys
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.json['email']
+    print(email, file=sys.stderr)
     password = request.json['password']
-    session['email'] = request.json['email']
+    session['email'] = email
+    print(email, file=sys.stderr)
     remember = True if request.json.get('remember') else False
 
     user = User.query.filter_by(email=email).first()

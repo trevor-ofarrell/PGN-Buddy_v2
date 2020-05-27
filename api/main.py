@@ -76,6 +76,7 @@ def filterdb():
 @main.route('/dashboard')
 def dashboard():
     try:
+        print(session['email'], file=sys.stderr)
         current_user = User.query.filter_by(email=session['email']).first()
     except:
         return render_template('webindex.html')
@@ -99,11 +100,8 @@ def dashboard():
         folderlist.append(str(folder))
     folderlist = list(dict.fromkeys(folderlist))
 
-    return render_template(
-        'user_dashboard.html',
-        folders=folderlist,
-        pgnlist=pgnlist,
-    )
+    print(jsonify((pgnlist, folderlist)), file=sys.stderr)
+    return jsonify((pgnlist, folderlist)), 201
 
 
 @main.route('/lichessupload', methods=['POST', 'GET'])

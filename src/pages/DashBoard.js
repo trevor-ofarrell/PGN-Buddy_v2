@@ -7,7 +7,8 @@ import fetch from 'isomorphic-unfetch'
 
 import {
     ResponsiveAppBar,
-} from "../components/ResponsiveAppBar"
+    Accordian,
+} from "../components"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,6 +18,17 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        zIndex: '0',
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    paper: {
+        background: 'linear-gradient(180deg, rgba(166, 166, 166, 0.462) 0%, rgba(53, 53, 53, 0.414) 22%, rgba(0, 0, 0, 0.758) 100%)',
+        zIndex: '2',
+        width: '90vw',
+        height: '85vh',
+        margin: 'auto',
+        marginTop: '3vh',
     },
 }));
 
@@ -26,7 +38,9 @@ export default function DashBoard() {
         <Box className={classes.root}>
             <ResponsiveAppBar />
             <Box>
-                s
+                <Paper elevation={1} className={classes.paper}>
+                    <Accordian/>
+                </Paper>
             </Box>
         </Box>
     )
