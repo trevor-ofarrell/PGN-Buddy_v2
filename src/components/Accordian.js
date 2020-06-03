@@ -6,10 +6,18 @@ export const Accordian = () => {
 
     const [pgnData, setData] = useState({  })
 
-    const fetchPgns = async() => {
+    async function fetchPgns() {
         // GET request using fetch inside useEffect React hook
-        const response = await fetch('https://localhost:5001/dashboard')
-        const data = response.json()
+        const response = await fetch('https://localhost:5001/dashboard', {
+            credentials: 'omit',
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+        const data = await response.json()
+        console.log(data)
         setData(data)
     }
 
@@ -20,10 +28,10 @@ export const Accordian = () => {
 
     return(
         <div>
-            {pgnData.map((game) => (
+            {pgnData[1].map((game) => (
                 <Collapse>
                     game.pgn
-                </Collapse>
+                </Collapse> 
             ))}
         </div>
     )

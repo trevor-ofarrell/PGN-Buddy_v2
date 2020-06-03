@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import { useState, useEffect } from 'react';
@@ -57,14 +58,18 @@ export default function LoginTab() {
                             const user = { email, password };
                             const response = await fetch("http://localhost:5001/login", {
                             method: "POST",
+                            credentials: 'include',
                             headers: {
-                                "Content-Type": "application/json"
+                                "Content-Type": "application/json",
+                                "Access-Control-Allow-Credentials": "true",
+                                "Access-Control-Allow-Origin": "*",
+                                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
                             },
                             body: JSON.stringify(user)
                             });
 
                             if (response.status == 201) {
-                                console.log('good boy')
                             }
                         }}
                     >

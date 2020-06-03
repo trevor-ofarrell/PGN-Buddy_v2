@@ -8,7 +8,7 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    cors = CORS(app)
+    cors = CORS(app)    
     app.config['CORS_HEADERS'] = 'Content-Type'
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
@@ -45,5 +45,12 @@ def create_app():
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    def _build_cors_prelight_response():
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "*")
+        response.headers.add("Access-Control-Allow-Methods", "*")
+        return response
 
     return app

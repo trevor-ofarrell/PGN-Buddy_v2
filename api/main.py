@@ -76,8 +76,8 @@ def filterdb():
 @main.route('/dashboard')
 def dashboard():
     try:
-        print(session['email'], file=sys.stderr)
         current_user = User.query.filter_by(email=session['email']).first()
+        print(current_user.email, file=sys.stderr)
     except:
         return render_template('webindex.html')
 
@@ -100,8 +100,8 @@ def dashboard():
         folderlist.append(str(folder))
     folderlist = list(dict.fromkeys(folderlist))
 
-    print(jsonify((pgnlist, folderlist)), file=sys.stderr)
-    return jsonify((pgnlist, folderlist)), 201
+    return {'pgns': pgnlist}, 201
+
 
 
 @main.route('/lichessupload', methods=['POST', 'GET'])
@@ -112,10 +112,10 @@ def lichessupload():
         except:
             return render_template('webindex.html')
 
-        if request.form['name']:
-            game_name = request.form['name']
+        if request.json['name']:
+            game_name = request.json['name']
 
-        game_string = request.form['gamestring']
+        game_string = request.json['gamestring']
 
         if str(game_string)[:5] == "liche":
             game_string = game_string[12:]
@@ -129,7 +129,7 @@ def lichessupload():
         if len(game_string) != 8:
             game_string = game_string[:8]
 
-        game_folder = request.form['folder']
+        game_folder = request.json['folder']
         lciframe = "http://lichess.org/embed/" + game_string + "?theme=wood4&bg=dark"
         uid = current_user.id
 
