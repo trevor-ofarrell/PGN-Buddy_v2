@@ -1,38 +1,110 @@
 import React from 'react';
-import Collapse from '@kunukn/react-collapse';
 import { useState, useEffect } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { color } from '@material-ui/system';
+
+const Accordion = withStyles({
+  root: {
+    background: 'linear-gradient(180deg, rgba(166, 166, 166, 0.462) 0%, rgba(53, 53, 53, 0.414) 22%, rgba(0, 0, 0, 0.758) 100%)',
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+})(MuiAccordion);
+
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiAccordionDetails);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    overflowY: 'scroll',
+    height: '91.5vh',
+  },
+  text: {
+    color: 'white',
+  },
+  loading: {
+    justifyContent: 'center',
+    height: '50vh',
+    marginLeft: '32vw',
+    marginTop: '30vh',
+    color: 'white'
+  }
+}))
+
+//   <iframe src={item.frame} width="760" height="500" frameborder="0" />
 
 export const Accordian = () => {
+    const classes = useStyles();
+    const [gameData, setGameData] = useState({});
 
-    const [pgnData, setData] = useState({  })
+    const [expanded, setExpanded] = React.useState('panel1');
 
-    async function fetchPgns() {
-        // GET request using fetch inside useEffect React hook
-        const response = await fetch('https://localhost:5001/dashboard', {
-            credentials: 'omit',
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Credentials": "true",
-                "Access-Control-Allow-Origin": "*",
-            },
-        })
-        const data = await response.json()
-        console.log(data)
-        setData(data)
+    const handleChange = (panel) => (event, newExpanded) => {
+      setExpanded(newExpanded ? panel : false);
+    };
+  
+    async function fetchData() {
+      const res = await fetch("http://127.0.0.1:5001/mydatabase");
+      res
+        .json()
+        .then(res => setGameData(res))
     }
-
+  
     useEffect(() => {
-       fetchPgns()
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+      fetchData();
     }, []);
 
-    return(
-        <div>
-            {pgnData[1].map((game) => (
-                <Collapse>
-                    game.pgn
-                </Collapse> 
-            ))}
+    return gameData && (
+        <div className={classes.root}>
+            {gameData.pgnlist ? gameData.pgnlist.map((item, index) => (
+              <Accordion TransitionProps={{ unmountOnExit: true }} expanded={expanded === 'panel' + String(index)} onChange={handleChange('panel' + String(index))}>
+                <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                  <Typography className={classes.text}>{JSON.stringify(item.name)}</Typography>
+                </AccordionSummary>
+              <AccordionDetails>
+                <Typography className={classes.text}>
+                  {JSON.stringify(item.game)}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            )) : <CircularProgress disableShrink size="40vh" thickness={1.5} className={classes.loading}/> }
         </div>
     )
 }

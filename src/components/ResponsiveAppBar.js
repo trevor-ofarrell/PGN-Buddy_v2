@@ -26,8 +26,6 @@ import {
   MoreHoriz as MoreIcon,
 } from "@material-ui/icons";
 
-import Link from "next/link";
-
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -93,10 +91,13 @@ const useStyles = makeStyles((theme) => ({
   minbutton: {
     color: "#FFFFFF",
   },
-  appbar: {},
+  appbar: {
+    height: '5vh',
+  },
   borderbutton: {
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: "white",
+    color: 'white',
     borderRadius: 5,
     borderStyle: "solid",
     marginRight: "8px",
@@ -206,17 +207,14 @@ export const ResponsiveAppBar = () => {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit" className={classes.minbutton}>
-              Buy
+          <Button color="inherit" className={classes.minbutton}>
+              home
             </Button>
             <Button color="inherit" className={classes.minbutton}>
-              Agents
+              dashboard
             </Button>
             <Button color="inherit" className={classes.minbutton}>
-              Sell
-            </Button>
-            <Button color="inherit" className={classes.minbutton}>
-              Company
+              more
             </Button>
             <Button color="inherit" className={classes.borderbutton}>
               Login

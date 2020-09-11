@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_cors import CORS
 
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    cors = CORS(app)    
-    app.config['CORS_HEADERS'] = 'Content-Type'
+    CORS(app, support_credentials=True)
 
     app.config['SECRET_KEY'] = '9OLWxND4o83j4K4iuopO'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
@@ -33,10 +32,10 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    """@app.after_request
+    @app.after_request
     def add_header(response):
         response.headers['X-Frame-Options'] = "ALLOW-FROM *"
-        return response"""
+        return response
 
     # blueprint for auth routes in our app
     from .auth import auth as auth_blueprint
@@ -45,12 +44,5 @@ def create_app():
     # blueprint for non-auth parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
-    def _build_cors_prelight_response():
-        response = make_response()
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "*")
-        response.headers.add("Access-Control-Allow-Methods", "*")
-        return response
 
     return app
