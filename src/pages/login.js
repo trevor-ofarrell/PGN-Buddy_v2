@@ -39,6 +39,31 @@ export default function LoginTab() {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const handleClick = () => {
+        console.log(password);
+    };
+
+    async function Login() {
+
+        var data = new URLSearchParams();
+        data.append('email', email);
+        data.append('password', password);
+        data.append('grant_type', 'password');
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded;' },
+            body: data
+        };
+
+        const res = await fetch("http://127.0.0.1:5001/login", requestOptions);
+        console.log((email))
+    }
+  
+    useEffect(() => {
+      Login();
+    }, []);
        
     return (
         <div className={classes.root}>
@@ -55,21 +80,28 @@ export default function LoginTab() {
                                     autoComplete="email"
                                     variant="filled"
                                     className={classes.textfield}
+                                    onChange={(event) => {setEmail(event.target.value)}}
+                                    value={email}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12} md={12} lg={12}>
                                 <TextField
-                                    id="filled-password-input"
+                                    id="filled-password-input2"
                                     label="Password"
                                     type="password"
                                     autoComplete="current-password"
                                     variant="filled"
                                     className={classes.textfield}
+                                    onChange={(event) => {setPassword(event.target.value)}}
+                                    value={password}
                                 />
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} >
-                            <Button className={classes.button}>Login</Button>
+                            <Button
+                                className={classes.button}
+                                onClick={Login}
+                            >Login</Button>
                         </Grid>
                     </Card>
                 </Grid>

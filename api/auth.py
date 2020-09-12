@@ -12,25 +12,25 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.json['email']
-    password = request.json['password']
-    session['email'] = request.json['email']
-    print(session['email'], file=sys.stderr)
-    remember = True if request.json.get('remember') else False
+    email = request.form.get('email')
+    password = request.form.get('password')
+    session['email'] = request.form['email']
+    remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
 
     if not user or not check_password_hash(user.password, password):
         flash('Please check your login details and try again.')
-        return redirect('/')
+        return redirect(url_for('auth.login'))
 
     if not email or not password:
         flash('Please check your login details and try again.')
-        return redirect('/')
+        return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
-    ret = {'status': 'ok'}
-    return jsonify(ret), 201
+    return '0'
+
+    ###return jsonify(ret), 201
     #return render_template("user_dashboard.html", current_user=user)
 
 @auth.route('/signup')
