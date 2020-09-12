@@ -5,6 +5,7 @@ import { Face, Fingerprint } from '@material-ui/icons'
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import fetch from 'isomorphic-unfetch'
+import Link from 'next/link'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -98,10 +99,16 @@ export default function LoginTab() {
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} >
-                            <Button
-                                className={classes.button}
-                                onClick={Login}
-                            >Login</Button>
+                            <Link href='/'>
+                                <div>
+                                    <Button
+                                        className={classes.button}
+                                        onClick={Login}
+                                    >
+                                        Login
+                                    </Button>
+                                </div>
+                            </Link>
                         </Grid>
                     </Card>
                 </Grid>

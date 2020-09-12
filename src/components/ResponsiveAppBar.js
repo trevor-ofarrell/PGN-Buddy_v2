@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 // Material UI
 import {
@@ -216,9 +217,11 @@ export const ResponsiveAppBar = () => {
             <Button color="inherit" className={classes.minbutton}>
               more
             </Button>
-            <Button color="inherit" className={classes.borderbutton}>
-              Login
-            </Button>
+            <Link href='/login'>
+              <Button color="inherit" className={classes.borderbutton}>
+                Login
+              </Button>
+            </Link>
             <Button color="inherit" className={classes.orangebutton}>
               Sign up
             </Button>
