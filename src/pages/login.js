@@ -1,6 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Card } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,12 +8,31 @@ import fetch from 'isomorphic-unfetch'
 
 
 const useStyles = makeStyles((theme) => ({
-    margin: {
-        margin: theme.spacing(2),
+    root: {
+        backgroundImage: 'url("/checkmate.jpeg")',
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: '100vh',
     },
-    padding: {
-        padding: theme.spacing(1)
+    mask: {
+        background: 'linear-gradient(180deg, rgba(156, 146, 156, 0.462) 20%, rgba(53, 53, 53, 0.414) 62%, rgba(0, 0, 0, 0.758) 90%)',
+        width: '100vw',
+        height: '100vh',
+    },
+    card: {
+        marginTop: '40vh',
+        background: 'linear-gradient(180deg, rgba(156, 146, 156, 0.462) 20%, rgba(53, 53, 53, 0.414) 62%, rgba(0, 0, 0, 0.758) 90%)',
+
+    },
+    textfield: {
+        width: '100%'
+    },
+    button: {
+        width: '100%',
+        color: 'white'
     }
+
 }));
 
 export default function LoginTab() {
@@ -22,61 +41,41 @@ export default function LoginTab() {
     const [password, setPassword] = useState("");
        
     return (
-        <Paper className={classes.padding}>
-            <div className={classes.margin}>
-                <Grid container spacing={8} alignItems="flex-end">
-                    <Grid item>
-                        <Face />
-                    </Grid>
-                    <Grid item md={true} sm={true} xs={true}>
-                        <TextField id="username" label="Username" type="email" onChange={e => setEmail(e.target.value)} fullWidth autoFocus required />
-                    </Grid>
+        <div className={classes.root}>
+            <Grid container className={classes.mask}>
+                <Grid item xs={1} sm={1} md={3} lg={4}/>
+                <Grid item xs={10} sm={10} md={6} lg={4}>
+                    <Card className={classes.card}>
+                        <Grid container>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <TextField
+                                    id="filled-password-input"
+                                    label="email"
+                                    type="email"
+                                    autoComplete="email"
+                                    variant="filled"
+                                    className={classes.textfield}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={12} md={12} lg={12}>
+                                <TextField
+                                    id="filled-password-input"
+                                    label="Password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    variant="filled"
+                                    className={classes.textfield}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={12} lg={12} >
+                            <Button className={classes.button}>Login</Button>
+                        </Grid>
+                    </Card>
                 </Grid>
-                <Grid container spacing={8} alignItems="flex-end">
-                    <Grid item>
-                        <Fingerprint />
-                    </Grid>
-                    <Grid item md={true} sm={true} xs={true}>
-                        <TextField id="username" label="Password" type="password" onChange={e => setPassword(e.target.value)} fullWidth required />
-                    </Grid>
-                </Grid>
-                <Grid container alignItems="center" justify="space-between">
-                    <Grid item>
-                        <FormControlLabel control={
-                            <Checkbox
-                                color="primary"
-                            />
-                        } label="Remember me" />
-                    </Grid>
-                    <Grid item>
-                        <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Forgot password ?</Button>
-                    </Grid>
-                </Grid>
-                <Grid container justify="center" style={{ marginTop: '10px' }}>
-                    <Button
-                        onClick={async () => {
-                            const user = { email, password };
-                            const response = await fetch("http://localhost:5001/login", {
-                            method: "POST",
-                            credentials: 'include',
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Access-Control-Allow-Credentials": "true",
-                                "Access-Control-Allow-Origin": "*",
-                                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                                "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
-                            },
-                            body: JSON.stringify(user)
-                            });
-
-                            if (response.status == 201) {
-                            }
-                        }}
-                    >
-                    submit
-                    </Button>
-                </Grid>
-            </div>
-        </Paper>
+                <Grid item xs={1} sm={1} md={3} lg={4}/>
+               
+            </Grid>
+        </div>
     );
 }
