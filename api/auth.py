@@ -30,9 +30,6 @@ def login_post():
     login_user(user, remember=remember)
     return '0'
 
-    ###return jsonify(ret), 201
-    #return render_template("user_dashboard.html", current_user=user)
-
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')

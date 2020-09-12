@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Card } from '@material-ui/core';
 import { Face, Fingerprint } from '@material-ui/icons'
-import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from 'next/link'
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         backgroundImage: 'url("/checkmate.jpeg")',
         backgroundRepeat: "no-repeat",
@@ -34,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function LoginTab() {
+export default function SignUp() {
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -43,7 +42,7 @@ export default function LoginTab() {
         console.log(password);
     };
 
-    async function Login() {
+    async function SignUpReq() {
 
         var data = new URLSearchParams();
         data.append('email', email);
@@ -56,13 +55,12 @@ export default function LoginTab() {
             body: data
         };
 
-        const res = await fetch("http://127.0.0.1:5001/login", requestOptions);
+        const res = await fetch("http://127.0.0.1:5001/signup", requestOptions);
         console.log((email))
-        console.log(res)
     }
   
     useEffect(() => {
-      Login();
+      SignUpReq();
     }, []);
        
     return (
@@ -102,9 +100,9 @@ export default function LoginTab() {
                                 <div>
                                     <Button
                                         className={classes.button}
-                                        onClick={Login}
+                                        onClick={SignUp}
                                     >
-                                        Login
+                                        Sign Up
                                     </Button>
                                 </div>
                             </Link>

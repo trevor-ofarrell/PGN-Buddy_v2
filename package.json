@@ -9,13 +9,12 @@
     "start-api": "cd api && python3 -m flask run --port 5001 --no-debugger"
   },
   "dependencies": {
-    "@kunukn/react-collapse": "^2.2.8",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.5.3",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-router-dom": "^5.2.0"
   },
   "eslintConfig": {

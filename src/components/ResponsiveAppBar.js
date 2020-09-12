@@ -222,9 +222,11 @@ export const ResponsiveAppBar = () => {
                 Login
               </Button>
             </Link>
-            <Button color="inherit" className={classes.orangebutton}>
-              Sign up
-            </Button>
+            <Link href='/signup'>
+              <Button color="inherit" className={classes.orangebutton}>
+                Sign up
+              </Button>
+            </Link>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
