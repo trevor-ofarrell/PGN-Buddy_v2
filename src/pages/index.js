@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
     ResponsiveAppBar,
     Accordian,
+    SideDrawer,
 } from "../components"
 
 const useStyles = makeStyles((theme) => ({
@@ -13,22 +14,20 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       maxHeight: '100vh',
       overflow: 'hidden',
-      backgroundImage: 'url("/checkmate.jpeg")',
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
+      background: '#121212',
       zIndex: '0',
       alignItems: "center",
       justifyContent: "center",
   },
   paper: {
-      background: 'linear-gradient(180deg, rgba(166, 166, 166, 0.462) 0%, rgba(53, 53, 53, 0.414) 22%, rgba(0, 0, 0, 0.758) 100%)',
+      background: '#121212',
       zIndex: '2',
       width: '99vw',
       height: '92vh',
       margin: 'auto',
       marginTop: '1.5vh',
   },
+
 }));
 
 function App() {
@@ -36,12 +35,15 @@ function App() {
 
   return (
     <Box className={classes.root}>
-      <ResponsiveAppBar />
-      <Box>
-          <Paper elevation={1} className={classes.paper}>
-              <Accordian/>
-          </Paper>
-      </Box>
+        <ResponsiveAppBar />
+        <Grid container>
+            <Grid item xs={12} md={12} lg={12}>
+                <Box>
+                    <SideDrawer/>
+                    
+                </Box>
+            </Grid>
+        </Grid>
     </Box>
 
   );

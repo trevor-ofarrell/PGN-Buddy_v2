@@ -34,6 +34,93 @@ def status():
 def home():
     return render_template('dashboard.html')
 
+@main.route('/deletepgn', methods=['POST'])
+def deletepgn():
+    pg = request.form['pgntodel']
+    q = db.session.query(pgn).filter_by(pgnId=pg).one()
+    db.session.delete(q)
+    db.session.commit()
+    return redirect(url_for('main.dashboard'))
+
+
+@main.route('/filterdb', methods=['POST'])
+def filterdb():
+    Folder = request.form['folder']
+    gamelist = []
+    games = db.session.query(pgn).all()
+    for game in games:
+        gamelist.append(game.game)
+
+    pgnlist = []
+    pgns = db.session.query(pgn).filter_by(folder=Folder).all()
+    for pg in pgns:
+        pgnlist.append({
+            'name': str(pg.fileName),
+            'game': pg.game,
+            'folder': pg.folder,
+            'frame': pg.frame,
+            'pgnId': pg.pgnId
+        })
+    return render_template(
+        'filterdb.html',
+        games=gamelist,
+        folder=Folder,
+        pgnlist=pgnlist
+    )
+
+@main.route('/lichessupload', methods=['POST', 'GET'])
+def lichessupload():
+    if request.method == 'POST':
+        #try:
+        #    current_user = User.query.filter_by(email=session['email']).first()
+        #except:
+        #    return 'false'
+
+        if request.form['name']:
+            game_name = request.form['name']
+
+        game_string = request.form['gamestring']
+        print(len(game_string), file=sys.stderr)
+
+        if str(game_string)[:5] == "liche":
+            game_string = game_string[12:]
+
+        elif str(game_string)[:5] == "http:":
+            game_string = game_string[19:]
+            print(game_string, file=sys.stderr)
+
+        elif str(game_string)[:5] == "https":
+            game_string = game_string[20:]
+
+        if len(game_string) != 8:
+            game_string = game_string[:8]
+
+        game_folder = request.form['folder']
+        lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
+        #uid = current_user.id
+
+        re = requests.get("{}/{}?{}".format(
+            'https://lichess.org/game/export',
+            game_string,
+            'pgnInJson=true'
+        ))
+        new_pgn = pgn(
+            #userId=uid,
+            game=re.text,
+            fileName=game_name,
+            folder=game_folder,
+            frame=lciframe
+        )
+        db.session.add(new_pgn)
+        db.session.commit()
+        return 'true'
+    #try:
+    #    current_user = User.query.filter_by(email=session['email']).first()
+    #except:
+    #    return 'false'
+
+    return 'false'
+
 @main.route('/lichessliterate', methods=['POST', 'GET'])
 def lichessliterate():
     if request.method == 'POST':
@@ -128,7 +215,7 @@ def uploadpgn():
         try:
             current_user = User.query.filter_by(email=session['email']).first()
         except:
-            return render_template('webindex.html')
+            return "1"
 
         uid = current_user.id
 
@@ -152,7 +239,7 @@ def uploadpgn():
             )
             db.session.add(new_pgn)
             db.session.commit()
-    return redirect(url_for('main.dashboard'))
+    return '0'
 
 @main.route('/exportall', methods=['GET', 'POST'])
 def exportall():
