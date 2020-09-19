@@ -42,7 +42,7 @@ export default function SignUp() {
         console.log(password);
     };
 
-    async function SignUpReq() {
+    async function SignUpPost() {
 
         var data = new URLSearchParams();
         data.append('email', email);
@@ -60,7 +60,7 @@ export default function SignUp() {
     }
   
     useEffect(() => {
-      SignUpReq();
+      SignUpPost();
     }, []);
        
     return (
@@ -100,7 +100,7 @@ export default function SignUp() {
                                 <div>
                                     <Button
                                         className={classes.button}
-                                        onClick={SignUp}
+                                        onClick={SignUpPost}
                                     >
                                         Sign Up
                                     </Button>

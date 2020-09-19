@@ -71,16 +71,11 @@ def filterdb():
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
     if request.method == 'POST':
-        #try:
-        #    current_user = User.query.filter_by(email=session['email']).first()
-        #except:
-        #    return 'false'
 
         if request.form['name']:
             game_name = request.form['name']
 
         game_string = request.form['gamestring']
-        print(len(game_string), file=sys.stderr)
 
         if str(game_string)[:5] == "liche":
             game_string = game_string[12:]
@@ -104,20 +99,20 @@ def lichessupload():
             game_string,
             'pgnInJson=true'
         ))
-        new_pgn = pgn(
-            #userId=uid,
-            game=re.text,
-            fileName=game_name,
-            folder=game_folder,
-            frame=lciframe
-        )
+        try:
+            new_pgn = pgn(
+                #userId=uid,
+                game=re.text,
+                fileName=game_name,
+                folder=game_folder,
+                frame=lciframe
+            )
+        except:
+            return 'false'
+        print(re.text, file=sys.stderr)
         db.session.add(new_pgn)
         db.session.commit()
         return 'true'
-    #try:
-    #    current_user = User.query.filter_by(email=session['email']).first()
-    #except:
-    #    return 'false'
 
     return 'false'
 
@@ -341,7 +336,7 @@ def exportall():
     return render_template('lichessexportall.html')
 
 
-@main.route('/nothingyet', methods=['GET', 'POST'])
+@main.route('/nothingyet', methods=['GET'])
 def nothingyet():
     q = db.session.query(pgn).all()
     for pg in q:

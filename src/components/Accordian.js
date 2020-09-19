@@ -93,7 +93,7 @@ export const Accordian = () => {
     return gameData && (
         <div className={classes.root}>
             {gameData.pgnlist ? gameData.pgnlist.map((item, index) => (
-              <Accordion TransitionProps={{ unmountOnExit: true }} expanded={expanded === 'panel' + String(index)} onChange={handleChange('panel' + String(index))}>
+              <Accordion TransitionProps={{ unmountOnExit: true }} key={index} expanded={expanded === 'panel' + String(index)} onChange={handleChange('panel' + String(index))}>
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                   <Typography className={classes.text}>{JSON.stringify(item.name)}</Typography>
                 </AccordionSummary>

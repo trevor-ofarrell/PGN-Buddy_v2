@@ -77,6 +77,10 @@ export const SideDrawer = (props) => {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  async function Del() {
+    const res = await fetch("http://127.0.0.1:5001/nothingyet");
+  }
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -92,8 +96,8 @@ export const SideDrawer = (props) => {
             </Link>
           </Grid>
           <Grid item xs={12} sm={12} lg={12}>
-            <Button className={classes.options}  variant="outlined">
-                Primary
+            <Button onClick={Del} className={classes.options} variant="outlined">
+                Clear DB
             </Button>
           </Grid>
           <Grid item xs={12} sm={12} lg={12}>
