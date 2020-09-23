@@ -28,7 +28,7 @@ def login_post():
         return redirect(url_for('auth.login'))"""
 
     login_user(user, remember=remember)
-    print(user, file=sys.stderr)
+    print(str(session.items()), file=sys.stderr)
     return '0'
 
 @auth.route('/signup', methods=['POST'])

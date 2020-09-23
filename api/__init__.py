@@ -38,6 +38,9 @@ def create_app():
     @app.after_request
     def add_header(response):
         response.headers['X-Frame-Options'] = "ALLOW-FROM *"
+        response.headers['Access-Control-Allow-Credentials'] = "true"
+        response.headers['SameSite'] = "None"
+        response.headers.add('Set-Cookie','cross-site-cookie=bar; SameSite=None; Secure')
         return response
 
     # blueprint for auth routes in our app

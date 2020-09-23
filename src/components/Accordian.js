@@ -80,7 +80,7 @@ export const Accordian = () => {
     };
   
     async function fetchData() {
-      const res = await fetch("http://127.0.0.1:5001/mydatabase");
+      const res = await fetch("http://127.0.0.1:5001/mydatabase", {credentials: 'include'});
       res
         .json()
         .then(res => setGameData(res))

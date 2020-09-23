@@ -177,6 +177,14 @@ def mydatabase():
     gamelist = []
     games = db.session.query(pgn).all()
 
+    try:
+        current_user = User.query.filter_by(email=session['email']).first()
+    except Exception as e:
+        session['email'] ='guh'
+        print(str(session.items()), file=sys.stderr)
+        return '222'
+    games = db.session.query(pgn).filter_by(userId=current_user.id).all()
+
     for game in games:
         gamelist.append(game.game)
 
@@ -200,7 +208,7 @@ def mydatabase():
     folderlist = list(dict.fromkeys(folderlist))
 
     ret = {"games": gamelist, "folders": folderlist, "pgnlist": pgnlist}
-
+    
     return ret
 
 
